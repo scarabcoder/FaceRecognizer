@@ -35,19 +35,20 @@ if __name__== "__main__":
 	sttime= time.clock()
 	i= 1
 	for name in input_names:
-		print(input_path+name)
-		color_img= cv2.imread(input_path+ name)
-		# converting color image to grayscale image
-		gray_img= cv2.cvtColor(color_img, cv2.COLOR_BGR2GRAY)
-
-		# find the bounding boxes around detected faces in images
-		bBoxes= frontal_face.detectMultiScale(gray_img, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30), flags = cv.CV_HAAR_SCALE_IMAGE)
-		#print(bBoxes)
-
-		for box in bBoxes:
-			#print(box)
-			# crop and save the image at specified location
-			cropImage(color_img, box)
-			i+= 1
+		if(name != "Thumbs.db"):
+			print(input_path+name)
+			color_img= cv2.imread(input_path+ name)
+			# converting color image to grayscale image
+			gray_img= cv2.cvtColor(color_img, cv2.COLOR_BGR2GRAY)
+	
+			# find the bounding boxes around detected faces in images
+			bBoxes= frontal_face.detectMultiScale(gray_img, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30), flags = cv.CV_HAAR_SCALE_IMAGE)
+			#print(bBoxes)
+	
+			for box in bBoxes:
+				#print(box)
+				# crop and save the image at specified location
+				cropImage(color_img, box)
+				i+= 1
 
 	print("Successfully completed the task in %.2f Secs." % (time.clock()- sttime))
